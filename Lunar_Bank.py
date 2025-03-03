@@ -18,7 +18,7 @@ def menu():
 
 title()
 menu()
-transations=[]
+transactions=[]
 
 balance = float(0)
 dayly_limit = float(1000)
@@ -38,8 +38,8 @@ while True:
             print()
             print('***** EXTRACT *****')
             print()
-            if transations:
-                for trans in transations:
+            if transactions:
+                for trans in transactions:
                     print(trans)
             else:
                 print('No movement.')
@@ -50,8 +50,8 @@ while True:
             if option == '3':
                 deposit_value=int(input('Whats deposit value?\n'))
                 balance+=deposit_value
-                transations.append(f'Deposit: R$ + {deposit_value:.2f}\n')
-                transations.append(f'{"*":>25}{balance:<25.2f}')
+                transactions.append(f'Deposit: R$ + {deposit_value:.2f}\n')
+                transactions.append(f'{"*":>25}{balance:<25.2f}')
                 print(f'You new balance is: R${balance:.2f}', end='')
                 print()
                 menu()
@@ -63,8 +63,8 @@ while True:
                     if withdraw_value > 0 and withdraw_value <= balance and withdraw_value <= dayly_limit:
                         balance -= withdraw_value
                         dayly_limit-= withdraw_value
-                        transations.append(f'Withdraw: R$ - {withdraw_value}\n')
-                        transations.append(f'{'*':>25}{balance:<.2f}')
+                        transactions.append(f'Withdraw: R$ - {withdraw_value}\n')
+                        transactions.append(f'{'*':>25}{balance:<.2f}')
                         print('Withdrawal successful.')
                         print(f'You atual balance is: {balance:.2f}')
                     else:
