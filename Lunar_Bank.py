@@ -52,24 +52,28 @@ def make_deposit(balance, transactions):
 
 # Withdraw an amount, respecting the balance and daily limit
 def withdraw(balance, daily_limit, transactions):
-    try:
-        withdraw_value = float(input('What is the withdrawal value? R$'))
-        print()
-        if withdraw_value > 0 and withdraw_value <= balance and withdraw_value <= daily_limit:
-            balance -= withdraw_value
-            daily_limit -= withdraw_value
-            transactions.append(f'Withdraw: R$ - {withdraw_value:.2f}')
-            transactions.append(f'{"*":>25}{balance:<25.2f}')
-            print('Withdrawal successful.')
-            print(f'Your current balance is: R${balance:.2f}')
-            print(f'Your remaining daily limit is: R${daily_limit:.2f}')
-            return balance, daily_limit, transactions
-        else:
-            print_error_message(withdraw_value, balance, daily_limit)
-            return balance, daily_limit, transactions
-    except ValueError:
-        print('Error: Please enter a valid value.')
-        return balance, daily_limit, transactions
+    while True:
+        try:
+            withdraw_value = float(input('What is the withdrawal value? R$\n'))
+            print()
+            if withdraw_value > 0 and withdraw_value <= balance and withdraw_value <= daily_limit:
+                balance -= withdraw_value
+                daily_limit -= withdraw_value
+                transactions.append(f'Withdraw: R$ - {withdraw_value:.2f}')
+                transactions.append(f'{"*":>25}{balance:<25.2f}')
+                print('Withdrawal successful.')
+                print(f'Your current balance is: R${balance:.2f}')
+                print(f'Your remaining daily limit is: R${daily_limit:.2f}')
+                return balance, daily_limit, transactions
+            else:
+                if withdraw_value > balance:
+                    print('insufficiente balance. Try Again\n')
+                elif withdraw_value > daily_limit:
+                    print('daily limit exceeded\n')
+
+        except ValueError:
+            print('Error: Please enter a valid value.')
+        
 
 
 # List to store movements
@@ -77,7 +81,7 @@ transactions=[]
 
 # Global variables
 balance = float(0)
-daily_limit = float(1000)
+daily_limit = float(500)
 
 
 # Start of main program
@@ -94,10 +98,10 @@ while True:
         show_statement(transactions)
         menu()
     elif option == '3':
-        balance, transactions = make_deposit(balance, transactions)
+        make_deposit(balance, transactions)
         menu()
     elif option == '4':
-        balance, daily_limit, transactions = withdraw(balance, daily_limit, transactions)
+        withdraw(balance, daily_limit, transactions)
         menu()
     elif option == '5':
         print('Thank you for using our system. Exiting...')
