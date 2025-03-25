@@ -98,7 +98,8 @@ while True:
         show_statement(transactions)
         menu()
     elif option == '3':
-        make_deposit(balance, transactions)
+        balance, transactions = make_deposit(balance, transactions)
+        # make_deposit(balance, transactions)
         menu()
     elif option == '4':
         withdraw(balance, daily_limit, transactions)
